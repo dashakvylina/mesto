@@ -44,6 +44,7 @@ const addPhotoProfileModal = document.querySelector("#add-photo");
 const addLike = document.querySelector(".element__like-img");
 const placeName = document.querySelectorAll(".form__field")[2];
 const placeLink = document.querySelectorAll(".form__field")[3];
+const modalImgContainer = document.querySelector(".modal-image__group");
 
 const renderElements = function () {
   let content = "";
@@ -75,8 +76,13 @@ const renderElements = function () {
       const img = evt.target;
       const index = img.id.substring(4);
       modalText.innerHTML = initialCards[index].name;
-      modalImg.src = initialCards[index].link;
-      modalImg.alt = initialCards[index].name;
+      const newImg = new Image();
+      newImg.src = initialCards[index].link;
+      newImg.alt = initialCards[index].name;
+      newImg.classList.add("modal-image__pic");
+      const oldImg = modalImgContainer.querySelector(".modal-image__pic");
+      if (oldImg !== null) oldImg.remove();
+      modalImgContainer.prepend(newImg);
       modalImgView.classList.add("modal-image_visible");
     })
   );

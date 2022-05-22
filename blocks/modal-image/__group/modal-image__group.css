@@ -1,7 +1,5 @@
 .modal-image__group {
   position: relative;
-  align-items: center;
-  justify-content: center;
   height: calc(100vh - 180px);
 }
 
