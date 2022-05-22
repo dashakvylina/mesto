@@ -3,4 +3,8 @@
   background-color: #ffffff;
   flex-direction: column;
   border-radius: 10px;
+  position: relative;
+  /* width: 282px; */
+  overflow: hidden;
+  height: 361px;
 }

@@ -1,0 +1,15 @@
+.modal-image__icon {
+  color: white;
+}
+
+.modal-image__icon:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 918px) {
+  .modal-image__icon {
+    width: 20px;
+    height: auto;
+  }
+}

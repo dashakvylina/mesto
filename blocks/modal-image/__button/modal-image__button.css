@@ -1,0 +1,15 @@
+.modal-image__button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+}
+
+@media screen and (max-width: 918px) {
+  .modal-image__button {
+    right: 0;
+    top: -36px;
+  }
+}
