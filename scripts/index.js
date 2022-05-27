@@ -26,9 +26,9 @@ const initialCards = [
 ];
 
 const cardsContainer = document.querySelector(".elements");
-const profilePopup = document.querySelector(".popup__profile");
-const cardPopup = document.querySelector(".popup__card");
-const imageViewPopup = document.querySelector(".popup__view-image");
+const profilePopup = document.querySelector(".popup-profile");
+const cardPopup = document.querySelector(".popup-card");
+const imageViewPopup = document.querySelector(".popup-image");
 const profilePopupCloseBtn = profilePopup.querySelector(".popup__close-btn");
 const cardPopupCloseBtn = cardPopup.querySelector(".popup__close-btn");
 const imageViewPopupCloseBtn = imageViewPopup.querySelector(".popup__close-btn");
