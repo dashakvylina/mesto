@@ -1,14 +1,14 @@
-.modal__close-icon {
+.popup__close-icon {
   color: white;
 }
 
-.modal__close-icon:hover {
+.popup__close-icon:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
 @media screen and (max-width: 918px) {
-  .modal__close-icon {
+  .popup__close-icon {
     width: 20px;
     height: auto;
   }

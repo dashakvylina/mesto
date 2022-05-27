@@ -2,4 +2,5 @@
   flex-grow: 1;
   max-height: 282px;
   object-fit: cover;
+  cursor: pointer;
 }

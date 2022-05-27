@@ -1,4 +1,4 @@
-.modal__window {
+.popup__window {
   width: 430px;
   height: 330px;
   background: white;
@@ -9,13 +9,13 @@
 }
 
 @media screen and (max-width: 468px) {
-  .modal__window {
+  .popup__window {
     width: calc(100% - 38px);
   }
 }
 
 @media screen and (max-width: 918px) {
-  .modal__window {
+  .popup__window {
     padding: 22px;
     height: auto;
   }

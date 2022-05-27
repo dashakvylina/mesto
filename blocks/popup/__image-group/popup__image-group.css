@@ -1,10 +1,10 @@
-.modal-image__group {
+.popup__image-group {
   position: relative;
   height: calc(100vh - 180px);
 }
 
-@media screen and (max-width: 768px) {
-  .modal-image__group {
+@media screen and (max-width: 1024px) {
+  .popup__image-group {
     width: calc(100% - 80px);
     height: auto;
   }

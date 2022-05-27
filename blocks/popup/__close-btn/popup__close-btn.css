@@ -1,4 +1,4 @@
-.modal__close-btn {
+.popup__close-btn {
   background-color: transparent;
   border: none;
   padding: 0;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 918px) {
-  .modal__close-btn {
+  .popup__close-btn {
     right: 0;
     top: -36px;
   }
