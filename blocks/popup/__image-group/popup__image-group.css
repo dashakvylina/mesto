@@ -3,7 +3,7 @@
   height: calc(100vh - 180px);
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 900px) {
   .popup__image-group {
     width: calc(100% - 80px);
     height: auto;

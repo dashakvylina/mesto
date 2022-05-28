@@ -44,6 +44,7 @@ const placeName = cardPopup.querySelectorAll(".form__field")[0];
 const placeLink = cardPopup.querySelectorAll(".form__field")[1];
 const cardTemplate = document.querySelector("#image-card").content;
 const popupImgCont = document.querySelector(".popup__image-group");
+const imgPopup = document.querySelector(".popup__image");
 
 function openPopup(popup) {
   popup.classList.add("popup_visible");
@@ -69,11 +70,8 @@ function createCard(data) {
 
   imgButton.addEventListener("click", function (evt) {
     openPopup(imageViewPopup);
-    const newImg = new Image();
-    newImg.src = data.link;
-    newImg.alt = data.name;
-    newImg.classList.add("popup__image");
-    popupImgCont.prepend(newImg);
+    imgPopup.src = data.link;
+    imgPopup.alt = data.name;
   });
 
   likeBtn.addEventListener("click", function (evt) {
@@ -101,9 +99,9 @@ cardPopupCloseBtn.addEventListener("click", function (evt) {
 });
 
 const showEditProfilePopup = function () {
-  openPopup(profilePopup);
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
+  openPopup(profilePopup);
 };
 
 profileEditButton.addEventListener("click", showEditProfilePopup);
@@ -116,9 +114,6 @@ profileAddButton.addEventListener("click", showAddCardPopup);
 
 imageViewPopupCloseBtn.addEventListener("click", function (evt) {
   closePopup(imageViewPopup);
-  const img = imageViewPopup.querySelector(".popup__image");
-
-  popupImgCont.removeChild(img);
 });
 
 const editProfile = function (event) {
@@ -135,8 +130,7 @@ const addPlace = function (event) {
   const newCard = createCard(newCardInfo);
   cardsContainer.prepend(newCard);
   closePopup(cardPopup);
-  placeName.value = "";
-  placeLink.value = "";
+  newPlaceForm.reset();
 };
 
 newPlaceForm.addEventListener("submit", addPlace);
