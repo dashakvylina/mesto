@@ -1,12 +1,6 @@
 .popup__image {
-  max-height: 80vh;
+  max-height: 75vh;
+  max-width: 75vw;
   width: auto;
-}
-
-@media screen and (max-width: 900px) {
-  .popup__image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
+  height: 100%;
 }

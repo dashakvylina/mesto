@@ -45,6 +45,7 @@ const placeLink = cardPopup.querySelectorAll(".form__field")[1];
 const cardTemplate = document.querySelector("#image-card").content;
 const popupImgCont = document.querySelector(".popup__image-group");
 const imgPopup = document.querySelector(".popup__image");
+const imgPopupText = document.querySelector(".popup__image-text");
 
 function openPopup(popup) {
   popup.classList.add("popup_visible");
@@ -72,6 +73,7 @@ function createCard(data) {
     openPopup(imageViewPopup);
     imgPopup.src = data.link;
     imgPopup.alt = data.name;
+    imgPopupText.textContent = data.name;
   });
 
   likeBtn.addEventListener("click", function (evt) {
