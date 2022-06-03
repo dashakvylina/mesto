@@ -121,6 +121,9 @@ const showEditProfilePopup = function () {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
   openPopup(profilePopup);
+  const submitBtn = profileForm.querySelector(".form__button");
+  submitBtn.disabled = false;
+  submitBtn.classList.remove("form__button_inactive");
 };
 
 profileEditButton.addEventListener("click", showEditProfilePopup);
@@ -150,6 +153,9 @@ const addPlace = function (event) {
   cardsContainer.prepend(newCard);
   closePopup(cardPopup);
   newPlaceForm.reset();
+  const submitBtn = newPlaceForm.querySelector(".form__button");
+  submitBtn.disabled = true;
+  submitBtn.classList.add("form__button_inactive");
 };
 
 newPlaceForm.addEventListener("submit", addPlace);
