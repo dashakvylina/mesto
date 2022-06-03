@@ -45,9 +45,33 @@
     <div class="popup popup-profile">
       <div class="popup__window">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="form" name="editProfileForm" method="get">
-          <input type="text" placeholder="Имя" name="name" class="form__field" />
-          <input type="text" placeholder="Род деятельности" name="speciality" class="form__field" />
+        <form class="form" name="editProfileForm" method="get" novalidate>
+          <label class="form__field">
+            <input
+              id="name-input"
+              type="text"
+              placeholder="Имя"
+              name="name"
+              class="form__input"
+              required
+              minlength="2"
+              maxlength="40"
+            />
+            <span class="name-input-error form__input-error">Вы пропустили это поле</span>
+          </label>
+          <label class="form__field">
+            <input
+              id="speciality-input"
+              type="text"
+              placeholder="Род деятельности"
+              name="speciality"
+              class="form__input"
+              required
+              minlength="2"
+              maxlength="40"
+            />
+            <span class="speciality-input-error form__input-error">Вы пропустили это поле</span>
+          </label>
           <button type="submit" class="form__button">Сохранить</button>
         </form>
         <button class="popup__close-btn" type="button">
@@ -59,9 +83,32 @@
     <div class="popup popup-card">
       <div class="popup__window">
         <h3 class="popup__title">Новое место</h3>
-        <form class="form" name="editNewPlace" method="get">
-          <input type="text" placeholder="Название" name="title" class="form__field" />
-          <input type="text" placeholder="Ссылка на картинку" name="picture" class="form__field" />
+        <form class="form" name="editNewPlace" method="get" novalidate>
+          <label class="form__field">
+            <input
+              id="place-input"
+              type="text"
+              placeholder="Название"
+              name="title"
+              class="form__input"
+              required
+              minlength="2"
+              maxlength="30"
+            />
+            <span class="place-input-error form__input-error"></span>
+          </label>
+          <label class="form__field">
+            <input
+              id="url-input"
+              type="text"
+              placeholder="Ссылка на картинку"
+              name="picture"
+              class="form__input"
+              required
+              type="url"
+            />
+            <span class="url-input-error form__input-error"></span>
+          </label>
           <button type="submit" class="form__button">Сохранить</button>
         </form>
         <button class="popup__close-btn" type="button">
@@ -94,5 +141,6 @@
     </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

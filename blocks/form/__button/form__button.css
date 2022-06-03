@@ -15,6 +15,11 @@
   cursor: pointer;
 }
 
+.form__button:disabled {
+  border-color: #e5e5e5;
+  color: #c4c4c4;
+}
+
 @media screen and (max-width: 918px) {
   .form__button {
     font-size: 14px;
