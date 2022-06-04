@@ -1,8 +1,3 @@
-// Функция isValid теперь принимает formElement и inputElement,
-// а не берёт их из внешней области видимости
-// const profilePopup = document.querySelector(".popup-profile");
-// const inputName = document.querySelector("#name-input");
-
 const isValid = (formElement, inputElement, inputErrorClass, errorClass) => {
   if (!inputElement.validity.valid) {
     // showInputError теперь получает параметром форму, в которой
