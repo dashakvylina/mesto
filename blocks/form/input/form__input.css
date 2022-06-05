@@ -11,9 +11,9 @@
   width: 100%;
 }
 
-.form__input:invalid {
+/* .form__input:invalid {
   border-color: red;
-}
+} */
 
 .form__input:valid {
   border-color: green;
