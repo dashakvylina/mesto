@@ -45,7 +45,7 @@
     <div class="popup popup-profile">
       <div class="popup__window">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="form" name="editProfileForm" method="get" novalidate>
+        <form class="form" name="editProfileForm" id="editProfileForm" method="get" novalidate>
           <label class="form__field">
             <input
               id="name-input"
@@ -83,7 +83,7 @@
     <div class="popup popup-card">
       <div class="popup__window">
         <h3 class="popup__title">Новое место</h3>
-        <form class="form" name="editNewPlace" method="get" novalidate>
+        <form class="form" id="editNewPlaceForm" name="editNewPlace" method="get" novalidate>
           <label class="form__field">
             <input
               id="place-input"
@@ -139,7 +139,6 @@
       </div>
     </template>
 
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

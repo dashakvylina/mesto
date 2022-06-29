@@ -1,3 +1,6 @@
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
 const initialCards = [
   {
     name: "Архыз",
@@ -42,10 +45,6 @@ const profileForm = profilePopup.querySelector("form");
 const newPlaceForm = cardPopup.querySelector("form");
 const placeName = cardPopup.querySelector("#place-input");
 const placeLink = cardPopup.querySelector("#url-input");
-const cardTemplate = document.querySelector("#image-card").content;
-const popupImgCont = document.querySelector(".popup__image-group");
-const imgPopup = document.querySelector(".popup__image");
-const imgPopupText = document.querySelector(".popup__image-text");
 const body = document.querySelector("body");
 const popupList = document.querySelectorAll(".popup");
 
@@ -56,7 +55,7 @@ const handleEscClose = (ev) => {
   }
 };
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add("popup_visible");
   body.addEventListener("keydown", handleEscClose);
 }
@@ -66,41 +65,14 @@ function closePopup(popup) {
   body.removeEventListener("keydown", handleEscClose);
 }
 
-function createCard(data) {
-  const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
-  const likeBtn = cardElement.querySelector(".element__like-btn");
-  const trashButton = cardElement.querySelector(".element__trash-btn");
-  const imgButton = cardElement.querySelector(".element__img");
-
-  imgButton.src = data.link;
-  imgButton.alt = data.name;
-  cardElement.querySelector(".element__text").textContent = data.name;
-
-  trashButton.addEventListener("click", function (evt) {
-    cardsContainer.removeChild(cardElement);
-  });
-
-  imgButton.addEventListener("click", function (evt) {
-    openPopup(imageViewPopup);
-    imgPopup.src = data.link;
-    imgPopup.alt = data.name;
-    imgPopupText.textContent = data.name;
-  });
-
-  likeBtn.addEventListener("click", function (evt) {
-    const btn = evt.target;
-    btn.classList.toggle("element__like-btn_active");
-  });
-
-  return cardElement;
-}
-
 function renderElements() {
   initialCards.forEach(function (card) {
-    const newCard = createCard(card);
-    cardsContainer.prepend(newCard);
+    const newCard = new Card(card.name, card.link);
+    const cardElement = newCard.generateCard();
+    cardsContainer.append(cardElement);
   });
 }
+
 renderElements();
 
 profilePopupCloseBtn.addEventListener("click", function (evt) {
@@ -146,9 +118,11 @@ profileForm.addEventListener("submit", editProfile);
 
 const addPlace = function (event) {
   event.preventDefault();
-  const newCardInfo = { name: placeName.value, link: placeLink.value };
-  const newCard = createCard(newCardInfo);
-  cardsContainer.prepend(newCard);
+
+  const newCard = new Card(placeName.value, placeLink.value);
+  const newCardHtml = newCard.generateCard();
+  cardsContainer.prepend(newCardHtml);
+
   closePopup(cardPopup);
   newPlaceForm.reset();
   const submitBtn = newPlaceForm.querySelector(".form__button");
@@ -157,3 +131,29 @@ const addPlace = function (event) {
 };
 
 newPlaceForm.addEventListener("submit", addPlace);
+
+const newPlaceFormValidator = new FormValidator(
+  {
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__button",
+    inactiveButtonClass: "form__button_inactive",
+    inputErrorClass: "form__input_type_error",
+    errorClass: "form__input-error_active",
+  },
+  document.querySelector("#editNewPlaceForm")
+);
+
+newPlaceFormValidator.enableValidation();
+
+const profileFormValidator = new FormValidator(
+  {
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__button",
+    inactiveButtonClass: "form__button_inactive",
+    inputErrorClass: "form__input_type_error",
+    errorClass: "form__input-error_active",
+  },
+  document.querySelector("#editProfileForm")
+);
+
+profileFormValidator.enableValidation();
