@@ -31,7 +31,7 @@ const initialCards = [
 const cardsContainer = document.querySelector(".elements");
 const profilePopup = document.querySelector(".popup-profile");
 const cardPopup = document.querySelector(".popup-card");
-const imageViewPopup = document.querySelector(".popup-image");
+export const imageViewPopup = document.querySelector(".popup-image");
 const profilePopupCloseBtn = profilePopup.querySelector(".popup__close-btn");
 const cardPopupCloseBtn = cardPopup.querySelector(".popup__close-btn");
 const imageViewPopupCloseBtn = imageViewPopup.querySelector(".popup__close-btn");
@@ -67,7 +67,7 @@ function closePopup(popup) {
 
 function renderElements() {
   initialCards.forEach(function (card) {
-    const newCard = new Card(card.name, card.link);
+    const newCard = new Card(card.name, card.link, "#image-card");
     const cardElement = newCard.generateCard();
     cardsContainer.append(cardElement);
   });
@@ -119,7 +119,7 @@ profileForm.addEventListener("submit", editProfile);
 const addPlace = function (event) {
   event.preventDefault();
 
-  const newCard = new Card(placeName.value, placeLink.value);
+  const newCard = new Card(placeName.value, placeLink.value, "#image-card");
   const newCardHtml = newCard.generateCard();
   cardsContainer.prepend(newCardHtml);
 
@@ -140,7 +140,7 @@ const newPlaceFormValidator = new FormValidator(
     inputErrorClass: "form__input_type_error",
     errorClass: "form__input-error_active",
   },
-  document.querySelector("#editNewPlaceForm")
+  document.querySelector(newPlaceForm)
 );
 
 newPlaceFormValidator.enableValidation();

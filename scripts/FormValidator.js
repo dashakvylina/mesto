@@ -36,9 +36,9 @@ export class FormValidator {
     }
   }
 
-  _hasInvalidInput(inputList) {
+  _hasInvalidInput() {
     // проходим по этому массиву методом some
-    return inputList.some((inputElement) => {
+    return this._inputList.some((inputElement) => {
       // Если поле не валидно, колбэк вернёт true
       // Обход массива прекратится и вся функция
       // hasInvalidInput вернёт true
@@ -47,13 +47,13 @@ export class FormValidator {
     });
   }
 
-  _toggleButtonState(inputList) {
+  _toggleButtonState() {
     const { submitButtonSelector, inactiveButtonClass } = this._options;
 
     const buttonElement = this._formElement.querySelector(submitButtonSelector);
 
     // Если есть хотя бы один невалидный инпут
-    if (this._hasInvalidInput(inputList)) {
+    if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
       buttonElement.classList.add(inactiveButtonClass);
       buttonElement.disabled = true;
@@ -65,19 +65,19 @@ export class FormValidator {
   }
 
   _setEventListeners() {
-    const { inputSelector, inactiveButtonClass } = this._options;
-    const inputList = Array.from(this._formElement.querySelectorAll(inputSelector));
+    const { inputSelector } = this._options;
+    this._inputList = Array.from(this._formElement.querySelectorAll(inputSelector));
 
-    this._toggleButtonState(inputList, inactiveButtonClass);
+    this._toggleButtonState();
 
     // Обойдём все элементы полученной коллекции
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
       inputElement.addEventListener("input", () => {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(inputElement);
-        this._toggleButtonState(inputList);
+        this._toggleButtonState();
       });
     });
   }
