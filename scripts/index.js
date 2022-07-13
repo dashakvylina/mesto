@@ -140,7 +140,7 @@ const newPlaceFormValidator = new FormValidator(
     inputErrorClass: "form__input_type_error",
     errorClass: "form__input-error_active",
   },
-  document.querySelector(newPlaceForm)
+  newPlaceForm
 );
 
 newPlaceFormValidator.enableValidation();
@@ -153,7 +153,7 @@ const profileFormValidator = new FormValidator(
     inputErrorClass: "form__input_type_error",
     errorClass: "form__input-error_active",
   },
-  document.querySelector("#editProfileForm")
+  profileForm
 );
 
 profileFormValidator.enableValidation();
