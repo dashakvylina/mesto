@@ -1,11 +1,9 @@
-import { openPopup } from "./index.js";
-import { imageViewPopup } from "./index.js";
-
-export class Card {
-  constructor(name, link, templateSelector) {
+export default class Card {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -47,15 +45,6 @@ export class Card {
     this._element = null;
   }
 
-  _handleImgClick() {
-    const imgPopup = document.querySelector(".popup__image");
-    const imgPopupText = document.querySelector(".popup__image-text");
-    imgPopup.src = this._link;
-    imgPopup.alt = this._name;
-    imgPopupText.textContent = this._name;
-    openPopup(imageViewPopup);
-  }
-
   _setEventListeners() {
     this._element
       .querySelector(".element__like-btn")
@@ -65,6 +54,6 @@ export class Card {
       .addEventListener("click", (ev) => this._handleDeleteCard(ev));
     this._element
       .querySelector(".element__img")
-      .addEventListener("click", () => this._handleImgClick());
+      .addEventListener("click", () => this._handleCardClick());
   }
 }
