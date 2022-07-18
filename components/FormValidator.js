@@ -47,28 +47,27 @@ export default class FormValidator {
     });
   }
 
-  _toggleButtonState() {
-    const { submitButtonSelector, inactiveButtonClass } = this._options;
-
-    const buttonElement = this._formElement.querySelector(submitButtonSelector);
+  toggleButtonState() {
+    const { inactiveButtonClass } = this._options;
 
     // Если есть хотя бы один невалидный инпут
     if (this._hasInvalidInput()) {
       // сделай кнопку неактивной
-      buttonElement.classList.add(inactiveButtonClass);
-      buttonElement.disabled = true;
+      this._submitBtn.classList.add(inactiveButtonClass);
+      this._submitBtn.disabled = true;
     } else {
       // иначе сделай кнопку активной
-      buttonElement.classList.remove(inactiveButtonClass);
-      buttonElement.disabled = false;
+      this._submitBtn.classList.remove(inactiveButtonClass);
+      this._submitBtn.disabled = false;
     }
   }
 
   _setEventListeners() {
-    const { inputSelector } = this._options;
+    const { inputSelector, submitButtonSelector } = this._options;
     this._inputList = Array.from(this._formElement.querySelectorAll(inputSelector));
+    this._submitBtn = this._formElement.querySelector(submitButtonSelector);
 
-    this._toggleButtonState();
+    this.toggleButtonState();
 
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
@@ -77,7 +76,7 @@ export default class FormValidator {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(inputElement);
-        this._toggleButtonState();
+        this.toggleButtonState();
       });
     });
   }

@@ -18,7 +18,7 @@ export default class Card {
     this._element = this._getTemplate();
     //   ` <div class="element">
     //   <button class="element__trash-btn">
-    //     <img src="./Images/Group.png" class="element__trash-img" alt="Корзина" />
+    //     <img src="./images/Group.png" class="element__trash-img" alt="Корзина" />
     //   </button>
     //   <img class="element__img" />
     //   <div class="element__group">
@@ -28,9 +28,9 @@ export default class Card {
     // </div>`
     this._setEventListeners();
 
-    this._element.querySelector(".element__text").textContent = this._name;
-    this._element.querySelector(".element__img").src = this._link;
-    this._element.querySelector(".element__img").alt = this._name;
+    this._cardText.textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     return this._element;
   }
 
@@ -40,20 +40,20 @@ export default class Card {
   }
 
   _handleDeleteCard(ev) {
-    const card = ev.target.closest(".element");
-    card.remove();
+    this._element.remove();
     this._element = null;
   }
 
   _setEventListeners() {
+    this._cardImage = this._element.querySelector(".element__img");
+    this._cardText = this._element.querySelector(".element__text");
     this._element
       .querySelector(".element__like-btn")
       .addEventListener("click", this._handleLikeClick);
     this._element
       .querySelector(".element__trash-btn")
       .addEventListener("click", (ev) => this._handleDeleteCard(ev));
-    this._element
-      .querySelector(".element__img")
-      .addEventListener("click", () => this._handleCardClick());
+
+    this._cardImage.addEventListener("click", () => this._handleCardClick());
   }
 }
