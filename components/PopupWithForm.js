@@ -3,7 +3,7 @@ export default class PopupWithForm extends Popup {
   constructor(selector, callback) {
     super(selector);
     this._callback = callback;
-    this._form = document.querySelector(selector).querySelector("form");
+    this._form = this._popup.querySelector(selector).querySelector("form");
     this._inputList = this._form.querySelectorAll(".form__input");
   }
 
