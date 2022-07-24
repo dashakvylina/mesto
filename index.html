@@ -19,7 +19,7 @@
       <div class="profile">
         <div class="profile__information">
           <div class="profile__avatar-container">
-            <img src="" class="profile__avatar" alt="аватар" />
+            <img src="<%=require('./images/image.png')%>" class="profile__avatar" alt="аватар" />
           </div>
           <div class="profile__person">
             <div class="profile__group">
@@ -89,7 +89,6 @@
       <div class="popup__window">
         <h3 class="popup__title">Обновить аватар</h3>
         <form class="form" name="editAvatarForm" id="editAvatarForm" method="get" novalidate>
-
           <label class="form__field">
             <input
               id="avatar-input"
@@ -112,7 +111,6 @@
         </button>
       </div>
     </div>
-
 
     <div class="popup popup-card">
       <div class="popup__window">
@@ -154,7 +152,6 @@
       </div>
     </div>
 
-
     <div class="popup popup-confirm">
       <div class="popup__window popup__window_without-content">
         <h3 class="popup__title">Вы уверены?</h3>
@@ -183,10 +180,6 @@
         </button>
       </div>
     </div>
-
-
-    </div>
-
     <template id="image-card">
       <div class="element">
         <button class="element__trash-btn">
