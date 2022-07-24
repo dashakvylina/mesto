@@ -18,15 +18,17 @@
     <main>
       <div class="profile">
         <div class="profile__information">
-          <img src="<%=require('./images/image.png')%>" class="profile__avatar" alt="аватар" />
+          <div class="profile__avatar-container">
+            <img src="" class="profile__avatar" alt="аватар" />
+          </div>
           <div class="profile__person">
             <div class="profile__group">
-              <h1 class="profile__text-name">Жак-Ив Кусто</h1>
+              <h1 class="profile__text-name"></h1>
               <button class="profile__edit-button" type="button">
                 <img src="<%=require('./images/edit.png')%>" alt="редактировать" />
               </button>
             </div>
-            <p class="profile__text-about">Исследователь океана</p>
+            <p class="profile__text-about"></p>
           </div>
         </div>
         <button class="profile__add-button" type="button">
@@ -83,6 +85,35 @@
       </div>
     </div>
 
+    <div class="popup popup-avatar">
+      <div class="popup__window">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="form" name="editAvatarForm" id="editAvatarForm" method="get" novalidate>
+
+          <label class="form__field">
+            <input
+              id="avatar-input"
+              type="url"
+              placeholder="Ссылка на картинку"
+              name="avatar"
+              class="form__input"
+              required
+            />
+            <span class="avatar-input-error form__input-error"></span>
+          </label>
+          <button type="submit" class="form__button">Сохранить</button>
+        </form>
+        <button class="popup__close-btn" type="button">
+          <img
+            src="<%=require('./images/Close_Icon.png')%>"
+            class="popup__close-icon"
+            alt="Закрыть"
+          />
+        </button>
+      </div>
+    </div>
+
+
     <div class="popup popup-card">
       <div class="popup__window">
         <h3 class="popup__title">Новое место</h3>
@@ -123,6 +154,22 @@
       </div>
     </div>
 
+
+    <div class="popup popup-confirm">
+      <div class="popup__window popup__window_without-content">
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button class="popup__close-btn" type="button">
+          <img
+            src="<%=require('./images/Close_Icon.png')%>"
+            class="popup__close-icon"
+            alt="Закрыть"
+          />
+        </button>
+
+        <button type="buton" class="popup__button">Да</button>
+      </div>
+    </div>
+
     <div class="popup popup-image">
       <div class="popup__image-group">
         <h5 class="popup__image-text"></h5>
@@ -137,6 +184,9 @@
       </div>
     </div>
 
+
+    </div>
+
     <template id="image-card">
       <div class="element">
         <button class="element__trash-btn">
@@ -145,7 +195,10 @@
         <img class="element__img" />
         <div class="element__group">
           <h2 class="element__text"></h2>
-          <button class="element__like-btn" type="button"></button>
+          <div class="element__like-group">
+            <button class="element__like-btn" type="button"></button>
+            <span class="element__like-sum"></span>
+          </div>
         </div>
       </div>
     </template>
