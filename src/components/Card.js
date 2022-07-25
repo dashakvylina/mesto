@@ -1,20 +1,12 @@
-import Api from "./Api.js";
-
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-45",
-  headers: {
-    authorization: "fbe58520-8678-4121-ac42-d1be94fdc956",
-    "Content-Type": "application/json",
-  },
-});
-
 export default class Card {
   constructor(
     { name, link, _id, likes, owner },
     templateSelector,
     handleCardClick,
     userId,
-    handleDelete
+    handleDelete,
+    handleDeleteLike,
+    handleLike
   ) {
     this._name = name;
     this._link = link;
@@ -25,6 +17,8 @@ export default class Card {
     this._userId = userId;
     this._owner = owner;
     this._handleDelete = handleDelete;
+    this._handleDeleteLike = handleDeleteLike;
+    this._handleLike = handleLike;
   }
 
   _getTemplate() {
@@ -49,16 +43,7 @@ export default class Card {
     if (!isOwnerCard) {
       this._trashBtn.remove();
     }
-    //   ` <div class="element">
-    //   <button class="element__trash-btn">
-    //     <img src="./images/Group.png" class="element__trash-img" alt="Корзина" />
-    //   </button>
-    //   <img class="element__img" />
-    //   <div class="element__group">
-    //     <h2 class="element__text"></h2>
-    //     <button class="element__like-btn" type="button"></button>
-    //   </div>
-    // </div>`
+
     this._setEventListeners();
 
     this._cardText.textContent = this._name;
@@ -78,22 +63,25 @@ export default class Card {
     const isLiked = this._likes.some((like) => like._id === this._userId);
 
     if (isLiked) {
-      api.deleteLike(this._id).then((card) => {
-        this._likeBtn.classList.remove("element__like-btn_active");
-        this._likes = card.likes;
-        this._showCurrentLikes(card.likes.length);
-      });
+      this._handleDeleteLike(this._id)
+        .then((card) => {
+          this._likeBtn.classList.remove("element__like-btn_active");
+          this._likes = card.likes;
+          this._showCurrentLikes(card.likes.length);
+        })
+        .catch((err) => console.log(err));
     } else {
-      api.setLike(this._id).then((card) => {
-        this._likeBtn.classList.add("element__like-btn_active");
-        this._likes = card.likes;
-        this._showCurrentLikes(card.likes.length);
-      });
+      this._handleLike(this._id)
+        .then((card) => {
+          this._likeBtn.classList.add("element__like-btn_active");
+          this._likes = card.likes;
+          this._showCurrentLikes(card.likes.length);
+        })
+        .catch((err) => console.log(err));
     }
   }
 
-  _handleDeleteCard() {
-    this._handleDelete(this._id);
+  remove() {
     this._element.remove();
     this._element = null;
   }
@@ -103,7 +91,7 @@ export default class Card {
     this._cardText = this._element.querySelector(".element__text");
     this._likeSum = this._element.querySelector(".element__like-sum");
     this._likeBtn.addEventListener("click", (ev) => this._handleLikeClick(ev));
-    this._trashBtn.addEventListener("click", (ev) => this._handleDeleteCard(ev));
+    this._trashBtn.addEventListener("click", (ev) => this._handleDelete(this));
     this._cardImage.addEventListener("click", () => this._handleCardClick());
   }
 }

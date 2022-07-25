@@ -1,0 +1,9 @@
+export const cardPopup = document.querySelector(".popup-card");
+export const profileEditButton = document.querySelector(".profile__edit-button");
+export const profileAddButton = document.querySelector(".profile__add-button");
+export const nameInput = document.querySelector("#name-input");
+export const aboutInput = document.querySelector("#speciality-input");
+export const profileForm = document.querySelector("#editProfileForm");
+export const avatarForm = document.querySelector("#editAvatarForm");
+export const newPlaceForm = cardPopup.querySelector("form");
+export const editAvatarBtn = document.querySelector(".profile__avatar-container");

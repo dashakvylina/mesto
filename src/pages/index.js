@@ -7,16 +7,16 @@ import UserInfo from "../components/UserInfo.js";
 import "./index.css";
 import Api from "../components/Api.js";
 import PopupConfirm from "../components/PopupConfirm.js";
-
-const cardPopup = document.querySelector(".popup-card");
-const profileEditButton = document.querySelector(".profile__edit-button");
-const profileAddButton = document.querySelector(".profile__add-button");
-const nameInput = document.querySelector("#name-input");
-const aboutInput = document.querySelector("#speciality-input");
-const profileForm = document.querySelector("#editProfileForm");
-const avatarForm = document.querySelector("#editAvatarForm");
-const newPlaceForm = cardPopup.querySelector("form");
-const editAvatarBtn = document.querySelector(".profile__avatar-container");
+import {
+  profileEditButton,
+  profileAddButton,
+  nameInput,
+  aboutInput,
+  profileForm,
+  avatarForm,
+  newPlaceForm,
+  editAvatarBtn,
+} from "./vars.js";
 
 const imagePopup = new PopupWithImage(".popup-image");
 imagePopup.setEventListeners();
@@ -35,24 +35,21 @@ const user = new UserInfo({
   imgSelector: ".profile__avatar",
 });
 
-const confirmPopup = new PopupConfirm(".popup-confirm");
+const confirmPopup = new PopupConfirm(".popup-confirm", (cardId) => api.deleteCard(cardId));
 confirmPopup.setEventListeners();
 
-const handleDeleteCard = (cardId) => {
-  confirmPopup.open();
-  confirmPopup.onOk(() => api.deleteCard(cardId));
-};
+const onConfirm = (data) => confirmPopup.open(data);
 
 const createCard = (card) => {
   const cardId = card._id;
   const newCard = new Card(
-    card,
-    "#image-card",
-    () => {
-      imagePopup.open(card.link, card.name);
-    },
-    user.getUserId(),
-    () => handleDeleteCard(cardId)
+    card, // данные
+    "#image-card", // селектор шаблона
+    () => imagePopup.open(card.link, card.name), // клик по картинке
+    user.getUserId(), // id юзера
+    onConfirm, // клик по корзине
+    () => api.deleteLike(cardId), // клик лайк
+    () => api.setLike(cardId) // клик лайк
   );
   const cardElement = newCard.generateCard();
   return cardElement;
@@ -68,16 +65,27 @@ const section = new Section(
 
 section.renderItems();
 
-api.fetchUser().then((userData) => {
-  user.setUserInfo(userData);
-});
+const renderItems = () => {
+  api
+    .fetchCards()
+    .then((cards) => {
+      cards
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+        .forEach((card) => {
+          const newCard = createCard(card);
+          section.addItem(newCard);
+        });
+    })
+    .catch((err) => console.log(err));
+};
 
-api.fetchCards().then((cards) => {
-  cards.forEach((card) => {
-    const newCard = createCard(card);
-    section.addItem(newCard);
-  });
-});
+api
+  .fetchUser()
+  .then((userData) => {
+    user.setUserInfo(userData);
+    renderItems();
+  })
+  .catch((err) => console.log(err));
 
 const newPlaceFormValidator = new FormValidator(
   {
@@ -119,14 +127,22 @@ const avatarFormValidator = new FormValidator(
 avatarFormValidator.enableValidation();
 
 const newCardOnSubmit = (values) => {
-  return api.createCard(values.title, values.picture).then((result) => {
-    const cardElement = createCard(result);
-    section.addItem(cardElement);
-  });
+  return api
+    .createCard(values.title, values.picture)
+    .then((result) => {
+      const cardElement = createCard(result);
+      section.addItem(cardElement);
+    })
+    .catch((err) => console.log(err));
 };
 
 const newAvatarOnSubmit = (values) => {
-  return api.editAvatar(values.avatar).then((res) => user.setUserInfo(res));
+  return api
+    .editAvatar(values.avatar)
+    .then((res) => {
+      user.setUserInfo(res);
+    })
+    .catch((err) => console.log(err));
 };
 
 const newCardPopup = new PopupWithForm(".popup-card", newCardOnSubmit);
@@ -145,9 +161,12 @@ editAvatarBtn.addEventListener("click", () => {
 });
 
 const profileOnSubmit = (values) => {
-  return api.editProfile(values.name, values.speciality).then((result) => {
-    user.setUserInfo(result);
-  });
+  return api
+    .editProfile(values.name, values.speciality)
+    .then((result) => {
+      user.setUserInfo(result);
+    })
+    .catch((err) => console.log(err));
 };
 
 const profilePopup = new PopupWithForm(".popup-profile", profileOnSubmit);

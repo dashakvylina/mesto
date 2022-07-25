@@ -13,3 +13,5 @@
 Чтобы собрать проект выполните
 
 `npm run build`
+
+Адрес проекта https://dashakvylina.github.io/mesto/

@@ -16,10 +16,7 @@ export default class Api {
         // если ошибка, отклоняем промис
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .then((res) => res)
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((res) => res);
   }
 
   fetchUser() {
