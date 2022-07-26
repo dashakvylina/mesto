@@ -126,13 +126,15 @@ const avatarFormValidator = new FormValidator(
 
 avatarFormValidator.enableValidation();
 
-const newCardOnSubmit = (values) => {
+const newCardOnSubmit = (values, submitBtn) => {
+  submitBtn.textContent = "Сохранение ...";
   return api
     .createCard(values.title, values.picture)
     .then((result) => {
       const cardElement = createCard(result);
       section.addItem(cardElement);
     })
+    .finally(() => (submitBtn.textContent = "Сохранить"))
     .catch((err) => console.log(err));
 };
 
