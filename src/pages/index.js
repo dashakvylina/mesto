@@ -139,12 +139,15 @@ const newCardOnSubmit = (values, popup) => {
     .catch((err) => console.log(err));
 };
 
-const newAvatarOnSubmit = (values) => {
+const newAvatarOnSubmit = (values, popup) => {
+  popup._submitBtn.textContent = "Сохранение ...";
   return api
     .editAvatar(values.avatar)
     .then((res) => {
       user.setUserInfo(res);
+      popup.close();
     })
+    .finally(() => (popup._submitBtn.textContent = "Сохранить"))
     .catch((err) => console.log(err));
 };
 
@@ -163,12 +166,15 @@ editAvatarBtn.addEventListener("click", () => {
   newAvatarForm.open();
 });
 
-const profileOnSubmit = (values) => {
+const profileOnSubmit = (values, popup) => {
+  popup._submitBtn.textContent = "Сохранение ...";
   return api
     .editProfile(values.name, values.speciality)
     .then((result) => {
       user.setUserInfo(result);
+      popup.close();
     })
+    .finally(() => (popup._submitBtn.textContent = "Сохранить"))
     .catch((err) => console.log(err));
 };
 
